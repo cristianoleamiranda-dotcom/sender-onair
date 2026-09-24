@@ -15,16 +15,19 @@
   <link rel="preload" as="image" href="./assets/hero.jpg" fetchpriority="high" />
   <link rel="preload" href="./assets/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="./assets/fonts/pxm-400.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="./styles.css?v=15" />
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
-  <script type="module" src="./app.js?v=15" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=16" />
+  <script src="./assets/vendor/gsap.min.js" defer></script>
+  <script src="./assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="./assets/vendor/lenis.min.js" defer></script>
+  <script type="module" src="./app.js?v=16" defer></script>
   <script type="application/ld+json">
   { "@context": "https://schema.org", "@type": "Organization", "name": "Sender (BIS SpA)",
     "url": "https://www.sender.cl/", "email": "sender@sender.cl", "telephone": "+56983864148",
     "address": { "@type": "PostalAddress", "streetAddress": "Blanco Viel #1108", "addressLocality": "San Miguel, Santiago", "addressCountry": "CL" } }
   </script>
+<noscript><style>
+.rv{opacity:1!important;transform:none!important}#loader{display:none!important}.hero-photo{display:none!important}.split .w{overflow:visible!important}
+</style></noscript>
 </head>
 <body class="loading">
 
@@ -57,7 +60,7 @@
 </div>
 
 <div class="back-film" aria-hidden="true">
-  <video id="back-film-v" src="./assets/videos/cine.mp4" muted playsinline preload="metadata" poster="./assets/cap-critical.jpg"></video>
+  <video id="back-film-v" src="./assets/videos/cine.mp4" muted playsinline loop autoplay preload="metadata" poster="./assets/cap-critical.jpg"></video>
   <span class="back-shade"></span>
 </div>
 
@@ -65,7 +68,7 @@
 
 <!-- ============ 01 · HERO SALA DE CONTROL ============ -->
 <section id="hero" class="hero">
-  <video id="film" src="./assets/videos/cap-torre.mp4" muted playsinline preload="auto" poster="./assets/hero.jpg" aria-hidden="true"></video>
+  <video id="film" src="./assets/videos/cap-torre.mp4" muted playsinline loop autoplay preload="auto" poster="./assets/hero.jpg" aria-hidden="true"></video>
   <span class="hero-shade" aria-hidden="true"></span>
   <div class="rings" aria-hidden="true"></div>
   <div class="hud mono" aria-hidden="true">
@@ -153,7 +156,7 @@
 <!-- ============ 04 · CATÁLOGO (pico) ============ -->
 <section id="catalogo" class="sec" data-wm="03">
   <div class="cat-cover">
-    <video id="cover-film" src="./assets/videos/cine.mp4" muted playsinline preload="metadata" poster="./assets/cap-critical.jpg" aria-hidden="true"></video>
+    <video id="cover-film" src="./assets/videos/cine.mp4" muted playsinline loop autoplay preload="metadata" poster="./assets/cap-critical.jpg" aria-hidden="true"></video>
     <span class="cover-shade" aria-hidden="true"></span>
     <div class="wrap cover-copy">
       <p class="kicker"><span class="k-dash"></span><span class="mono k-n">03</span><span data-i18n="cat.label">Catálogo</span></p>
@@ -263,7 +266,7 @@
     </header>
     <div class="htrack" id="htrack">
       <figure class="slide"><div class="slide-media" data-tilt><img src="./assets/proj-am.jpg" alt="Planta AM" loading="lazy"></div><figcaption><p class="loc mono" data-i18n="proj.1.loc">Chile · Onda media</p><h3 data-i18n="proj.1.h">Planta AM de alta potencia</h3><p data-i18n="proj.1.p">Transmisor, mástil y puesta en ON AIR.</p></figcaption></figure>
-      <figure class="slide"><div class="slide-media" data-tilt><video src="./assets/videos/prop-rapanui.mp4" muted loop playsinline preload="metadata" aria-label="Rapa Nui"></video></div><figcaption><p class="loc mono" data-i18n="proj.2.loc">Rapa Nui · 3.759 km</p><h3 data-i18n="proj.2.h">Enlace HF más largo del país</h3><p data-i18n="prop.km">3.759 km sobre el Pacífico, 24/7.</p></figcaption></figure>
+      <figure class="slide"><div class="slide-media" data-tilt><video src="./assets/videos/prop-rapanui.mp4" muted loop autoplay playsinline preload="metadata" aria-label="Rapa Nui"></video></div><figcaption><p class="loc mono" data-i18n="proj.2.loc">Rapa Nui · 3.759 km</p><h3 data-i18n="proj.2.h">Enlace HF más largo del país</h3><p data-i18n="prop.km">3.759 km sobre el Pacífico, 24/7.</p></figcaption></figure>
       <figure class="slide"><div class="slide-media" data-tilt><img src="./assets/proj-stl.jpg" alt="STL" loading="lazy"></div><figcaption><p class="loc mono" data-i18n="proj.3.loc">Santiago · STL</p><h3 data-i18n="proj.3.h">Enlace estudio–planta</h3><p data-i18n="proj.3.p">Audio digital punto a punto con redundancia.</p></figcaption></figure>
       <figure class="slide"><div class="slide-media" data-tilt><img src="./assets/hero.jpg" alt="Torre nocturna" loading="lazy"></div><figcaption><p class="loc mono" data-i18n="proj.4.loc">Zona costera · Torres</p><h3 data-i18n="proj.4.h">Torres y mástiles a medida</h3><p data-i18n="proj.4.p">Estructuras certificadas para viento y salinidad extremos.</p></figcaption></figure>
     </div>
@@ -320,7 +323,7 @@
   <footer class="foot">
     <div class="wrap foot-in">
       <p class="mono" data-i18n="foot.1">© 2026 Sender · BIS SpA — Todos los derechos reservados.</p>
-      <p class="mono build">SENDER · ON AIR BUILD 1.5</p>
+      <p class="mono build">SENDER · ON AIR BUILD 1.6</p>
       <p class="mono" data-i18n="foot.2">Ingeniería RF y Broadcasting · Santiago de Chile</p>
       <a class="foot-top mono" href="#hero" data-i18n="foot.top">↑ Volver arriba</a>
     </div>

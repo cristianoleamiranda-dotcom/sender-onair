@@ -4,7 +4,7 @@
    radar CSS, stacks keynote, dial VFO, track pinned.
    GSAP+ScrollTrigger+Lenis CDN. i18n.js autónomo ES/EN.
    ============================================================ */
-import './i18n.js?v=20';
+import './i18n.js?v=21';
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;

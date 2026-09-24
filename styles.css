@@ -312,7 +312,7 @@ body.photo-mode #film { opacity: 0; }
 main { position: relative; z-index: 1; }
 .sec { background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.30) 26%, rgba(0,0,0,.30) 74%, rgba(0,0,0,.66)); }
 .sec.deep { background: linear-gradient(180deg, rgba(3,7,12,.72), rgba(3,7,12,.42) 30%, rgba(3,7,12,.42) 70%, rgba(3,7,12,.76)); }
-.hero { background: #000; } #film { opacity: .68; }
+.hero { background: #000; } #film { opacity: .92; filter: contrast(1.08) brightness(.95) saturate(1.05); }
 .marq { background: rgba(0,0,0,.72); }
 /* vidrio sutil sobre el film para legibilidad */
 .cap { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border: 0; border-top: 1px solid var(--rule); padding: 18px 4px 0; }
@@ -401,3 +401,24 @@ body:not(.photo-mode) .hero-photo img { opacity: 0 !important; }
 .cap--text p { font-size: 15px; line-height: 1.6; color: #42506a; }
 .sec.light .cap--text { background: #fff; }
 @media (max-width: 760px){ .caps--text{ grid-template-columns: 1fr; } .float-card--glass video{ height: 260px; } }
+
+/* ============ v2.0 — hero 1 video + capacidades sin bloque blanco (video protagonista) + CTA editorial ============ */
+.hero-float { display: none !important; } /* solo 1 video en hero */
+#film { opacity: .92; }
+.sec#capacidades { background: linear-gradient(180deg, rgba(0,0,0,.34), rgba(0,0,0,.14) 26%, rgba(0,0,0,.14) 74%, rgba(0,0,0,.38)); }
+.sec#capacidades .cap--text { background: rgba(255,255,255,.06); backdrop-filter: blur(12px) saturate(1.15); -webkit-backdrop-filter: blur(12px) saturate(1.15); border: 1px solid rgba(255,255,255,.12); box-shadow: 0 14px 40px rgba(0,0,0,.28); }
+.sec#capacidades .cap--text h3 { color: #fff; }
+.sec#capacidades .cap--text p { color: rgba(255,255,255,.78); }
+.sec#capacidades .cap--text .cap-n { color: var(--ice); }
+/* CTA más editorial y protagonismo blanco/azul */
+#contacto .cta-band { background: #fff; border: 1px solid rgba(13,21,38,.08); box-shadow: 0 20px 60px rgba(13,21,38,.12); border-radius: 18px; padding: 36px 32px; }
+#contacto .cta-band h3 { color: #0d1526; font-family: var(--fd); font-size: clamp(26px, 4vw, 44px); text-transform: uppercase; letter-spacing: .01em; }
+#contacto .cta-band p { color: #42506a; max-width: 52ch; }
+#contacto .cta-band .btn-fill { background: var(--blue); box-shadow: 0 10px 28px rgba(30,115,190,.28); }
+#contacto .cta-band .btn-line { border-color: rgba(13,21,38,.14); color: #0d1526; }
+#contacto .cta-band .btn-line:hover { border-color: var(--blue); color: var(--blue); }
+/* más blanco/azul sin perder video protagonista */
+.kicker { color: var(--ice); }
+.kicker .k-dash { background: var(--ice); width: 42px; }
+.hero-title em { color: var(--ice); }
+.sec .kicker .k-n { color: var(--ice); }

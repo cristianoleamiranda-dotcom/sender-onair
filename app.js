@@ -313,3 +313,21 @@ if (!reduce && matchMedia('(pointer: fine)').matches) {
     lenis.on('scroll', ({ velocity }) => sk(Math.max(-6, Math.min(6, velocity * .06))));
   }
 })();
+
+/* ---------- v1.7-prep: inercia de capas del hero + pulso del needle VFO ---------- */
+(() => {
+  if (reduce) return;
+  const st = { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true };
+  gsap.to('#film', { yPercent: 6, scale: 1.1, ease: 'none', scrollTrigger: st });
+  gsap.to('.hero-ghost', { yPercent: -30, ease: 'none', scrollTrigger: st });
+  gsap.to('.hero-in', { yPercent: -16, autoAlpha: .3, ease: 'none', scrollTrigger: st });
+  gsap.to('.hud', { y: -46, ease: 'none', scrollTrigger: st });
+  const needle = document.querySelector('.needle');
+  document.querySelectorAll('.segs button, .segs [role="button"], .segs li').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (!needle) return;
+      needle.classList.add('pulse');
+      setTimeout(() => needle.classList.remove('pulse'), 620);
+    });
+  });
+})();

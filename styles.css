@@ -346,3 +346,11 @@ body:not(.photo-mode) .hero-photo img { opacity: 0 !important; }
 /* anillos visibles en movil */
 @media (max-width: 1000px) { .rings { width: 82vw; right: -24vw; top: 8vh; opacity: .65; } .hero-ghost { bottom: 20svh; } .hero-cue { bottom: 150px; } }
 @media (prefers-reduced-motion: reduce) { .hero-scan, .hero-cue i { animation: none; } .hero-scan { display: none; } }
+
+/* ============ v1.7-prep: pase editorial del catalogo + pulso VFO ============ */
+.cov-ghost { position: absolute; left: 0; right: 0; bottom: 20%; z-index: 1; font-family: var(--fd); font-size: clamp(52px, 11vw, 180px); line-height: .9; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.09); pointer-events: none; white-space: nowrap; overflow: hidden; }
+.cov-scan { position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 2; background: linear-gradient(90deg, transparent, rgba(140,200,220,.45), transparent); animation: scan 9s linear infinite; pointer-events: none; }
+.cov-rail { position: absolute; right: clamp(10px, 2vw, 26px); top: 22%; z-index: 2; writing-mode: vertical-rl; font-size: 10.5px; letter-spacing: .42em; color: rgba(255,255,255,.45); }
+.cov-rail::after { content: ''; display: block; width: 1px; height: 46px; background: linear-gradient(180deg, transparent, var(--cyan)); margin: 12px auto 0; }
+.needle.pulse { box-shadow: 0 0 18px var(--cyan), 0 0 4px var(--cyan); transition: box-shadow .18s; }
+@media (prefers-reduced-motion: reduce) { .cov-scan { display: none; } }

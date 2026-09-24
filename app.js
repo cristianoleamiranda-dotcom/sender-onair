@@ -4,7 +4,7 @@
    radar CSS, stacks keynote, dial VFO, track pinned.
    GSAP+ScrollTrigger+Lenis CDN. i18n.js autónomo ES/EN.
    ============================================================ */
-import './i18n.js?v=13';
+import './i18n.js?v=17';
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
@@ -322,6 +322,8 @@ if (!reduce && matchMedia('(pointer: fine)').matches) {
   gsap.to('.hero-ghost', { yPercent: -30, ease: 'none', scrollTrigger: st });
   gsap.to('.hero-in', { yPercent: -16, autoAlpha: .3, ease: 'none', scrollTrigger: st });
   gsap.to('.hud', { y: -46, ease: 'none', scrollTrigger: st });
+  gsap.to('.hero-float', { yPercent: -34, scale: .88, rotationY: 6, ease: 'none', scrollTrigger: st });
+  gsap.to('.hero-cue', { autoAlpha: 0, y: -12, ease: 'none', scrollTrigger: st });
   const needle = document.querySelector('.needle');
   document.querySelectorAll('.segs button, .segs [role="button"], .segs li').forEach((el) => {
     el.addEventListener('click', () => {
@@ -330,4 +332,31 @@ if (!reduce && matchMedia('(pointer: fine)').matches) {
       setTimeout(() => needle.classList.remove('pulse'), 620);
     });
   });
+})();
+
+/* ---------- v1.7 — hero Apple pin + transmitter desarme sync ---------- */
+(() => {
+  if (reduce) return;
+  // Pin sutil del hero para lectura Apple (sin bloquear scroll)
+  ScrollTrigger.create({
+    trigger: '#hero',
+    start: 'top top',
+    end: '+=68%',
+    pin: true,
+    pinSpacing: true,
+    scrub: false,
+    // fallback para mobile: pinType auto
+  });
+  // El film del hero hace scrub de su tiempo con el scroll (desarme conectado)
+  const film = document.getElementById('film');
+  if (film) {
+    const st2 = { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true };
+    ScrollTrigger.create({ ...st2, onUpdate: (s) => {
+      // ligera sincronia: el fondo global y el hero comparten progreso
+      const bv = document.getElementById('back-film-v');
+      if (bv && bv.duration) {
+        // no forzamos currentTime si el video esta en autoplay loop (evita freeze), solo modulamos playbackRate ya hecho en v1.5
+      }
+    }});
+  }
 })();

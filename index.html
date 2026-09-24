@@ -15,11 +15,11 @@
   <link rel="preload" as="image" href="./assets/hero.jpg" fetchpriority="high" />
   <link rel="preload" href="./assets/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="./assets/fonts/pxm-400.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="./styles.css?v=16" />
+  <link rel="stylesheet" href="./styles.css?v=17" />
   <script src="./assets/vendor/gsap.min.js" defer></script>
   <script src="./assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="./assets/vendor/lenis.min.js" defer></script>
-  <script type="module" src="./app.js?v=16" defer></script>
+  <script type="module" src="./app.js?v=17" defer></script>
   <script type="application/ld+json">
   { "@context": "https://schema.org", "@type": "Organization", "name": "Sender (BIS SpA)",
     "url": "https://www.sender.cl/", "email": "sender@sender.cl", "telephone": "+56983864148",
@@ -102,6 +102,12 @@
     </button>
   </div>
   <span class="t-bar" aria-hidden="true"><i id="t-fill"></i></span>
+    <div class="hero-float" aria-hidden="true">
+    <div class="float-card">
+      <img src="./assets/stack-am-v1.jpg" alt="Transmisor AM Sender — vista 01" loading="eager" fetchpriority="high">
+      <span class="float-tag mono">SENDER AM · 10 kW — FLOAT SCROLL</span>
+    </div>
+  </div>
   <div class="wrap hero-stats">
     <p class="stat rv"><strong data-count="60">0</strong><span class="mono" data-i18n="hero.s1">mástil Armada 60 m</span></p>
     <p class="stat rv"><strong data-count="3759">0</strong><span class="mono" data-i18n="hero.s2">km enlace HF Rapa Nui</span></p>
@@ -277,7 +283,7 @@
 </section>
 
 <!-- ============ 07 · NOSOTROS (ON AIR) ============ -->
-<section id="nosotros" class="sec" data-wm="06">
+<section id="nosotros" class="sec light" data-wm="06">
   <div class="wrap about">
     <div class="about-media">
       <img src="./assets/about.jpg" alt="Equipo Sender en planta" loading="lazy">
@@ -326,7 +332,7 @@
   <footer class="foot">
     <div class="wrap foot-in">
       <p class="mono" data-i18n="foot.1">© 2026 Sender · BIS SpA — Todos los derechos reservados.</p>
-      <p class="mono build">SENDER · ON AIR BUILD 1.6</p>
+      <p class="mono build">SENDER · ON AIR BUILD 1.7</p>
       <p class="mono" data-i18n="foot.2">Ingeniería RF y Broadcasting · Santiago de Chile</p>
       <a class="foot-top mono" href="#hero" data-i18n="foot.top">↑ Volver arriba</a>
     </div>

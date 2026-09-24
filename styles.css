@@ -354,3 +354,38 @@ body:not(.photo-mode) .hero-photo img { opacity: 0 !important; }
 .cov-rail::after { content: ''; display: block; width: 1px; height: 46px; background: linear-gradient(180deg, transparent, var(--cyan)); margin: 12px auto 0; }
 .needle.pulse { box-shadow: 0 0 18px var(--cyan), 0 0 4px var(--cyan); transition: box-shadow .18s; }
 @media (prefers-reduced-motion: reduce) { .cov-scan { display: none; } }
+
+/* ============ v1.7 — hero flotante Apple + desarme scroll + respiro editorial + blanco/azul ============ */
+.hero-float { position: absolute; left: 50%; bottom: clamp(112px, 13vh, 176px); transform: translateX(-50%); width: min(560px, 78vw); z-index: 3; pointer-events: none; }
+.float-card { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 28px 80px rgba(0,0,0,.58), 0 2px 20px rgba(0,0,0,.32), 0 0 0 1px rgba(255,255,255,.9) inset; padding: 10px 10px 0; border: 1px solid rgba(255,255,255,.96); }
+.float-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 12px; display: block; }
+.float-tag { display: block; padding: 10px 6px 13px; text-align: center; font-size: 10px; letter-spacing: .32em; color: var(--blue); background: #fff; }
+.hero-float { animation: floatY 6s ease-in-out infinite; }
+@keyframes floatY { 0%,100%{ transform: translateX(-50%) translateY(0) } 50%{ transform: translateX(-50%) translateY(-10px) } }
+/* editorial respiro: overlays mas ligeros para que el video respire y no recargue */
+.sec { background: linear-gradient(180deg, rgba(0,0,0,.48), rgba(0,0,0,.22) 26%, rgba(0,0,0,.22) 74%, rgba(0,0,0,.52)); }
+.sec.deep { background: linear-gradient(180deg, rgba(3,7,12,.58), rgba(3,7,12,.30) 30%, rgba(3,7,12,.30) 70%, rgba(3,7,12,.62)); }
+.back-film video { opacity: .52; }
+.back-shade { background: radial-gradient(130% 95% at 50% 8%, rgba(0,0,0,0) 0%, rgba(0,0,0,.20) 52%, rgba(0,0,0,.62) 100%); }
+/* capacidades: mas aire Apple — gap mayor, imgs con radius y sombra sutil */
+.caps { gap: clamp(22px, 3.2vw, 44px); }
+.cap-media { border-radius: 14px; overflow: hidden; box-shadow: 0 12px 28px rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.10); }
+.cap-media img { transition: transform .7s cubic-bezier(.22,1,.36,1); }
+.cap:hover .cap-media img { transform: scale(1.04); }
+/* blanco/azul mas protagonico — sin romper el cine oscuro */
+.hero-title em { color: var(--ice); }
+.kicker { color: var(--ice); }
+.kicker .k-dash { background: var(--ice); }
+.sec.light { background: #f6f8fb; color: #0d1526; }
+.sec.light::before { -webkit-text-stroke: 1px rgba(13,21,38,.08); }
+.sec.light .kicker { color: var(--blue); }
+.sec.light .kicker .k-dash { background: var(--blue); }
+.sec.light h2 { color: #0d1526; }
+.sec.light h2 em { color: var(--blue); }
+.sec.light .sec-sub, .sec.light p { color: #42506a; }
+.sec.light .about-media img { box-shadow: 0 20px 50px rgba(13,21,38,.18); border-radius: 14px; }
+.sec.light .onair { background: var(--blue); color: #fff; border-color: var(--blue); }
+.sec.light .pull { border-left-color: var(--blue); color: #0d1526; }
+.sec.light .point h4 { color: var(--blue); }
+@media (max-width: 760px){ .hero-float{ bottom: 118px; width: min(86vw, 420px);} .float-card img{ height: 220px; } .hero-title{ font-size: clamp(40px, 11vw, 64px);} }
+@media (prefers-reduced-motion: reduce){ .hero-float{ animation:none; } }

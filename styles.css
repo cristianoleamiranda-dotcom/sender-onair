@@ -434,3 +434,8 @@ body:not(.photo-mode) .hero-photo img { opacity: 0 !important; }
 .cases .case { background: rgba(255,255,255,.04); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 18px; margin-bottom: 12px; grid-template-columns: 76px 1fr auto; }
 .cases .case:hover { background: rgba(255,255,255,.07); }
 .case-thumb { border-radius: 10px; border: 1px solid rgba(255,255,255,.10); }
+
+/* v2.2 — sin fotos sobre video, filas texto puro, video siempre en movimiento */
+.cases .case { grid-template-columns: 72px 1fr auto; }
+.cases .case .case-body { max-width: 68ch; }
+#back-film-v { will-change: transform; }

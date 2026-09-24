@@ -4,7 +4,7 @@
    radar CSS, stacks keynote, dial VFO, track pinned.
    GSAP+ScrollTrigger+Lenis CDN. i18n.js autónomo ES/EN.
    ============================================================ */
-import './i18n.js?v=22';
+import './i18n.js?v=23';
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
@@ -102,7 +102,7 @@ $$('[data-count]').forEach((el) => {
   const photos = $$('.hero-photo img');
   let ready = false, tgt = 0, cur = 0, auto = false, scrollP = 0, photoIdx = -1, scrub = false, rate = .5;
   const mmss = (t) => `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(Math.floor(t) % 60).padStart(2, '0')}`;
-  v.addEventListener('loadedmetadata', () => { ready = true; if (tdur) tdur.textContent = mmss(v.duration); if (!reduce) { v.loop = true; v.playbackRate = .5; v.play().catch(() => {}); } }, { once: true });
+  v.addEventListener('loadedmetadata', () => { ready = true; if (tdur) tdur.textContent = mmss(v.duration); if (!reduce) { v.loop = true; v.playbackRate = .62; v.play().catch(() => {}); v.addEventListener('click',()=>v.play().catch(()=>{})); } }, { once: true });
   ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true, onUpdate: (s) => { scrollP = s.progress; const d = Math.abs(s.progress - (s.oldProgress ?? s.progress)); rate = Math.min(1.9, .5 + d * 55); if (scrub && !auto) tgt = s.progress; } });
   playBtn.addEventListener('click', () => {
     if (photoIdx >= 0) setPhoto(-1);
@@ -286,14 +286,19 @@ if (!reduce && matchMedia('(pointer: fine)').matches) {
   const v = document.getElementById('back-film-v');
   if (!v) return;
   let ready = false, tgt = 0, cur = 0;
-  v.addEventListener('loadedmetadata', () => { ready = true; v.pause(); }, { once: true });
+  v.addEventListener('loadedmetadata', () => { ready = true; v.loop = true; v.playbackRate = 0.42; v.play().catch(()=>{}); }, { once: true });
   ScrollTrigger.create({ start: 0, end: 'max', scrub: true, onUpdate: (s) => { tgt = s.progress; } });
   document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
   (function tick() {
     if (ready && v.duration && isFinite(v.duration) && !reduce) {
-      cur += (tgt - cur) * 0.1;
-      const t = cur * (v.duration - 0.05);
-      if (Math.abs(v.currentTime - t) > 0.03) { try { v.currentTime = t; } catch (_) {} }
+      // scrub + ambient drift — video nunca queda quieto
+      cur += (tgt - cur) * 0.06;
+      if (Math.abs(tgt - cur) < 0.001) cur += 0.00018; // drift lento
+      if (cur > 0.98) cur = 0; // loop scrub
+      const t = (cur % 1) * (v.duration - 0.05);
+      if (Math.abs(v.currentTime - t) > 0.02) { try { v.currentTime = t; } catch (_) {} }
+      // mantener playbackRate vivo por si el navegador lo pausa
+      if (v.paused && !document.hidden) v.play().catch(()=>{});
     }
     requestAnimationFrame(tick);
   })();

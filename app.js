@@ -100,21 +100,22 @@ $$('[data-count]').forEach((el) => {
   const fill = $('#t-fill'), tc = $('#tc'), tdur = $('#tdur');
   const playBtn = $('#t-play'), photoBtn = $('#t-photo'), fsBtn = $('#t-fs');
   const photos = $$('.hero-photo img');
-  let ready = false, tgt = 0, cur = 0, auto = false, scrollP = 0, photoIdx = -1;
+  let ready = false, tgt = 0, cur = 0, auto = false, scrollP = 0, photoIdx = -1, scrub = false, rate = .5;
   const mmss = (t) => `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(Math.floor(t) % 60).padStart(2, '0')}`;
-  v.addEventListener('loadedmetadata', () => { ready = true; v.pause(); if (tdur) tdur.textContent = mmss(v.duration); }, { once: true });
-  ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true, onUpdate: (s) => { scrollP = s.progress; if (!auto) tgt = s.progress; } });
+  v.addEventListener('loadedmetadata', () => { ready = true; if (tdur) tdur.textContent = mmss(v.duration); if (!reduce) { v.loop = true; v.playbackRate = .5; v.play().catch(() => {}); } }, { once: true });
+  ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true, onUpdate: (s) => { scrollP = s.progress; const d = Math.abs(s.progress - (s.oldProgress ?? s.progress)); rate = Math.min(1.9, .5 + d * 55); if (scrub && !auto) tgt = s.progress; } });
   playBtn.addEventListener('click', () => {
     if (photoIdx >= 0) setPhoto(-1);
     auto = !auto;
     document.body.classList.toggle('film-auto', auto);
-    if (auto) v.play().catch(() => {}); else { v.pause(); tgt = scrollP; }
+    if (auto) { v.playbackRate = 1; v.play().catch(() => {}); } else { scrub = false; v.playbackRate = .5; v.play().catch(() => {}); }
   });
   function setPhoto(i) {
     photoIdx = i;
     photos.forEach((p, k) => p.classList.toggle('on', k === i));
     document.body.classList.toggle('photo-mode', i >= 0);
     if (i >= 0) { auto = false; document.body.classList.remove('film-auto'); v.pause(); }
+    if (i < 0 && !reduce && !auto) { v.playbackRate = .5; v.play().catch(() => {}); }
     if (i >= 0 && !reduce) gsap.fromTo(photos[i], { scale: 1.06 }, { scale: 1, duration: 4.5, ease: 'power1.out' });
   }
   photoBtn.addEventListener('click', () => setPhoto(photoIdx >= photos.length - 1 ? -1 : photoIdx + 1));
@@ -126,17 +127,21 @@ $$('[data-count]').forEach((el) => {
     if (auto || /input|textarea/i.test(document.activeElement.tagName)) return;
     const r = $('#hero').getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
-    if (e.key === 'ArrowRight') { tgt = Math.min(1, tgt + 0.02); e.preventDefault(); }
-    if (e.key === 'ArrowLeft') { tgt = Math.max(0, tgt - 0.02); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { if (!scrub) { scrub = true; v.pause(); cur = v.duration ? v.currentTime / v.duration : 0; tgt = cur; } tgt = Math.min(1, tgt + 0.02); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { if (!scrub) { scrub = true; v.pause(); cur = v.duration ? v.currentTime / v.duration : 0; tgt = cur; } tgt = Math.max(0, tgt - 0.02); e.preventDefault(); }
   });
   (function tick() {
     if (ready && v.duration && isFinite(v.duration)) {
-      if (!auto && photoIdx < 0) {
-        cur += (tgt - cur) * (reduce ? 1 : 0.12);
-        const t = cur * (v.duration - 0.05);
-        if (Math.abs(v.currentTime - t) > 0.01) { try { v.currentTime = t; } catch (_) {} }
+      if (photoIdx < 0) {
+        if (scrub && !auto) {
+          cur += (tgt - cur) * (reduce ? 1 : 0.12);
+          const t = cur * (v.duration - 0.05);
+          if (Math.abs(v.currentTime - t) > 0.01) { try { v.currentTime = t; } catch (_) {} }
+        } else if (!auto && !reduce) {
+          v.playbackRate += (rate - v.playbackRate) * 0.08;
+        }
       }
-      fill.style.width = ((auto ? v.currentTime / v.duration : scrollP) * 100).toFixed(2) + '%';
+      fill.style.width = (((auto || !scrub) ? v.currentTime / v.duration : scrollP) * 100).toFixed(2) + '%';
       tc.textContent = mmss(v.currentTime);
     }
     requestAnimationFrame(tick);
@@ -292,4 +297,19 @@ if (!reduce && matchMedia('(pointer: fine)').matches) {
     }
     requestAnimationFrame(tick);
   })();
+})();
+
+/* ---------- v1.5: parallax editorial de medios + skew del marquee por velocidad ---------- */
+(() => {
+  if (reduce) return;
+  gsap.utils.toArray('.cap-media, .slide-media').forEach((box) => {
+    const img = box.querySelector('img'); if (!img) return;
+    gsap.set(img, { scale: 1.14 });
+    gsap.fromTo(img, { yPercent: -7 }, { yPercent: 7, ease: 'none', scrollTrigger: { trigger: box, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+  const track = document.querySelector('.marq-in');
+  if (track && lenis) {
+    const sk = gsap.quickTo(track, 'skewX', { duration: .5, ease: 'power2.out' });
+    lenis.on('scroll', ({ velocity }) => sk(Math.max(-6, Math.min(6, velocity * .06))));
+  }
 })();

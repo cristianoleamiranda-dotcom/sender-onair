@@ -275,3 +275,21 @@ if (!reduce && matchMedia('(pointer: fine)').matches) {
     b.addEventListener('pointerleave', () => gsap.to(b, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' }));
   });
 }
+
+/* ---------- v1.2: film de fondo scrubbed en toda la pagina ---------- */
+(() => {
+  const v = document.getElementById('back-film-v');
+  if (!v) return;
+  let ready = false, tgt = 0, cur = 0;
+  v.addEventListener('loadedmetadata', () => { ready = true; v.pause(); }, { once: true });
+  ScrollTrigger.create({ start: 0, end: 'max', scrub: true, onUpdate: (s) => { tgt = s.progress; } });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
+  (function tick() {
+    if (ready && v.duration && isFinite(v.duration) && !reduce) {
+      cur += (tgt - cur) * 0.1;
+      const t = cur * (v.duration - 0.05);
+      if (Math.abs(v.currentTime - t) > 0.03) { try { v.currentTime = t; } catch (_) {} }
+    }
+    requestAnimationFrame(tick);
+  })();
+})();

@@ -322,3 +322,27 @@ main { position: relative; z-index: 1; }
 .pstack { background: rgba(0,0,0,.9); }
 .cta-band { background: rgba(0,0,0,.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 @media (prefers-reduced-motion: reduce) { .back-film video { opacity: .22; } }
+
+/* ============ v1.3: hero corregido + capas editoriales/inmersivas ============ */
+.hero-photo { pointer-events: none; }
+.hero-photo img.on { opacity: 1; }
+body:not(.photo-mode) .hero-photo img { opacity: 0 !important; }
+/* scrim superior para nav sobre frames claros */
+.hero-shade { background: linear-gradient(180deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.10) 34%, rgba(0,0,0,.88) 80%, #000 100%); }
+.nav { text-shadow: 0 1px 10px rgba(0,0,0,.65); }
+/* ghost outline del titulo (capa editorial) */
+.hero-ghost { position: absolute; left: 0; right: 0; bottom: 16svh; z-index: 1; font-family: var(--fd); font-size: clamp(60px, 13vw, 210px); line-height: .9; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.10); transform: translateY(38%); pointer-events: none; user-select: none; white-space: nowrap; overflow: hidden; }
+.hero-ghost em { -webkit-text-stroke: 1px rgba(0,133,178,.28); }
+/* scanline de barrido (broadcast) */
+.hero-scan { position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 2; background: linear-gradient(90deg, transparent, rgba(143,208,232,.5), transparent); animation: scan 7s linear infinite; pointer-events: none; }
+@keyframes scan { 0% { transform: translateY(0); opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { transform: translateY(92svh); opacity: 0; } }
+/* rail vertical ON AIR */
+.hero-rail { position: absolute; left: clamp(10px, 2vw, 26px); bottom: 24svh; z-index: 2; writing-mode: vertical-rl; font-size: 10.5px; letter-spacing: .42em; color: rgba(255,255,255,.5); }
+.hero-rail::before { content: ''; display: block; width: 1px; height: 52px; background: linear-gradient(180deg, var(--cyan), transparent); margin: 0 auto 12px; }
+/* cue de scroll */
+.hero-cue { position: absolute; left: 50%; bottom: 118px; z-index: 2; width: 1px; height: 64px; background: rgba(255,255,255,.22); transform: translateX(-50%); }
+.hero-cue i { position: absolute; top: 0; left: -2px; width: 5px; height: 5px; border-radius: 50%; background: var(--ice); box-shadow: 0 0 12px var(--ice); animation: cue 2.2s ease-in-out infinite; }
+@keyframes cue { 0%,100% { transform: translateY(0); } 50% { transform: translateY(56px); } }
+/* anillos visibles en movil */
+@media (max-width: 1000px) { .rings { width: 82vw; right: -24vw; top: 8vh; opacity: .65; } .hero-ghost { bottom: 20svh; } .hero-cue { bottom: 150px; } }
+@media (prefers-reduced-motion: reduce) { .hero-scan, .hero-cue i { animation: none; } .hero-scan { display: none; } }

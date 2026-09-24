@@ -7,8 +7,8 @@ const DICT = {
   es: {
     'nav.tray': 'Trayectoria', 'nav.cap': 'Capacidades', 'nav.esp': 'Espectro',
     'nav.proj': 'Proyectos', 'nav.about': 'Nosotros', 'nav.contact': 'Contacto',
-    'hero.eyebrow': 'BIS SpA · Broadcasting &amp; Telecomunicaciones · Chile',
-    'hero.title': 'Engineering the <em>Signal</em>',
+    'hero.eyebrow': 'Ingeniería RF · Radiodifusión · Comunicaciones críticas',
+    'hero.title': 'Ingeniería de la <em>señal</em>',
     'hero.sub': 'Ingeniería de radiofrecuencia para los lugares más remotos de Chile: transmisores, antenas y torres donde la señal no puede fallar.',
     'hero.cta1': 'Sintonizar el espectro', 'hero.cta2': 'WhatsApp directo',
     'hero.s1': 'años en broadcasting', 'hero.s2': 'torre Armada de Chile', 'hero.s3': 'enlace HF Rapa Nui', 'hero.s4': 'sistemas NAVTEX',

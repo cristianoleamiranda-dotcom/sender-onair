@@ -131,7 +131,7 @@ body.film-auto .ic-pause { display: inline; }
 .hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s ease; filter: contrast(1.06) saturate(1.05); }
 .hero-photo img.on { opacity: 1; }
 body.photo-mode #film { opacity: 0; }
-#film { transition: opacity .8s ease; }
+#film { transition: opacity .8s ease; opacity: .72; filter: contrast(1.08) brightness(.88) saturate(1.05) blur(.3px); }
 /* costura editorial entre actos */
 .sec::after { content: ''; position: absolute; bottom: 0; left: 6%; right: 6%; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,133,178,.55), transparent); }
 .hero-stats { display: flex; flex-wrap: wrap; border-top: 1px solid var(--rule); padding-block: 20px 30px; position: relative; z-index: 2; }
@@ -312,7 +312,7 @@ body.photo-mode #film { opacity: 0; }
 main { position: relative; z-index: 1; }
 .sec { background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.30) 26%, rgba(0,0,0,.30) 74%, rgba(0,0,0,.66)); }
 .sec.deep { background: linear-gradient(180deg, rgba(3,7,12,.72), rgba(3,7,12,.42) 30%, rgba(3,7,12,.42) 70%, rgba(3,7,12,.76)); }
-.hero { background: #000; }
+.hero { background: #000; } #film { opacity: .68; }
 .marq { background: rgba(0,0,0,.72); }
 /* vidrio sutil sobre el film para legibilidad */
 .cap { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border: 0; border-top: 1px solid var(--rule); padding: 18px 4px 0; }
@@ -356,10 +356,13 @@ body:not(.photo-mode) .hero-photo img { opacity: 0 !important; }
 @media (prefers-reduced-motion: reduce) { .cov-scan { display: none; } }
 
 /* ============ v1.7 — hero flotante Apple + desarme scroll + respiro editorial + blanco/azul ============ */
-.hero-float { position: absolute; left: 50%; bottom: clamp(112px, 13vh, 176px); transform: translateX(-50%); width: min(560px, 78vw); z-index: 3; pointer-events: none; }
+.hero-float { position: absolute; left: 50%; bottom: clamp(102px, 12vh, 160px); transform: translateX(-50%); width: min(680px, 86vw); z-index: 3; pointer-events: none; }
 .float-card { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 28px 80px rgba(0,0,0,.58), 0 2px 20px rgba(0,0,0,.32), 0 0 0 1px rgba(255,255,255,.9) inset; padding: 10px 10px 0; border: 1px solid rgba(255,255,255,.96); }
+.float-card--glass { background: rgba(255,255,255,.06); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); border: 1px solid rgba(255,255,255,.14); box-shadow: 0 32px 80px rgba(0,0,0,.62), 0 8px 32px rgba(0,0,0,.28); padding: 0; }
+.float-card--glass video { height: 380px; border-radius: 16px; }
 .float-card img, .float-card video { width: 100%; height: 300px; object-fit: cover; border-radius: 12px; display: block; }
 .float-tag { display: block; padding: 10px 6px 13px; text-align: center; font-size: 10px; letter-spacing: .32em; color: var(--blue); background: #fff; }
+.float-card--glass .float-tag { background: rgba(0,0,0,.32); color: var(--ice); border-top: 1px solid rgba(255,255,255,.10); backdrop-filter: blur(8px); }
 .hero-float { animation: floatY 6s ease-in-out infinite; }
 @keyframes floatY { 0%,100%{ transform: translateX(-50%) translateY(0) } 50%{ transform: translateX(-50%) translateY(-10px) } }
 /* editorial respiro: overlays mas ligeros para que el video respire y no recargue */
@@ -387,5 +390,14 @@ body:not(.photo-mode) .hero-photo img { opacity: 0 !important; }
 .sec.light .onair { background: var(--blue); color: #fff; border-color: var(--blue); }
 .sec.light .pull { border-left-color: var(--blue); color: #0d1526; }
 .sec.light .point h4 { color: var(--blue); }
-@media (max-width: 760px){ .hero-float{ bottom: 118px; width: min(86vw, 420px);} .float-card img, .float-card video{ height: 220px; } .hero-title{ font-size: clamp(40px, 11vw, 64px);} }
+@media (max-width: 760px){ .hero-float{ bottom: 108px; width: min(92vw, 440px);} .float-card img, .float-card video{ height: 220px; } .float-card--glass video{ height: 240px; } .hero-title{ font-size: clamp(40px, 11vw, 64px);} }
 @media (prefers-reduced-motion: reduce){ .hero-float{ animation:none; } }
+
+/* ============ v1.9 — capacidades editorial sin imagenes sobre video ============ */
+.caps--text { grid-template-columns: repeat(2, 1fr); gap: clamp(18px, 3vw, 36px); }
+.cap--text { grid-column: span 1; border: 1px solid rgba(13,21,38,.08); background: #fff; border-radius: 16px; padding: 28px 24px; box-shadow: 0 8px 28px rgba(13,21,38,.06); }
+.cap--text .cap-n { display: block; font-size: 11px; letter-spacing: .32em; color: var(--blue); margin-bottom: 12px; }
+.cap--text h3 { font-size: clamp(18px, 2vw, 24px); color: #0d1526; margin-bottom: 10px; }
+.cap--text p { font-size: 15px; line-height: 1.6; color: #42506a; }
+.sec.light .cap--text { background: #fff; }
+@media (max-width: 760px){ .caps--text{ grid-template-columns: 1fr; } .float-card--glass video{ height: 260px; } }

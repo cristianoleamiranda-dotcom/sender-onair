@@ -94,21 +94,33 @@ $$('[data-count]').forEach((el) => {
     onUpdate: () => { el.textContent = Math.round(o.v).toLocaleString('es-CL'); } });
 });
 
-/* ---------- FILM HERO: transporte (scroll + play + teclado) ---------- */
+/* ---------- FILM HERO: cluster de transporte (scroll + play + foto + fs) ---------- */
 (() => {
   const v = $('#film'); if (!v) return;
-  const fill = $('#t-fill'), tc = $('#tc'), playBtn = $('#t-play');
-  let ready = false, tgt = 0, cur = 0, auto = false, scrollP = 0;
-  const fmtTC = (t) => {
-    const p = (x) => String(x).padStart(2, '0');
-    return `${p(Math.floor(t / 3600))}:${p(Math.floor(t / 60) % 60)}:${p(Math.floor(t) % 60)}:${p(Math.floor((t % 1) * 30))}`;
-  };
-  v.addEventListener('loadedmetadata', () => { ready = true; v.pause(); }, { once: true });
+  const fill = $('#t-fill'), tc = $('#tc'), tdur = $('#tdur');
+  const playBtn = $('#t-play'), photoBtn = $('#t-photo'), fsBtn = $('#t-fs');
+  const photos = $$('.hero-photo img');
+  let ready = false, tgt = 0, cur = 0, auto = false, scrollP = 0, photoIdx = -1;
+  const mmss = (t) => `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(Math.floor(t) % 60).padStart(2, '0')}`;
+  v.addEventListener('loadedmetadata', () => { ready = true; v.pause(); if (tdur) tdur.textContent = mmss(v.duration); }, { once: true });
   ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true, onUpdate: (s) => { scrollP = s.progress; if (!auto) tgt = s.progress; } });
   playBtn.addEventListener('click', () => {
+    if (photoIdx >= 0) setPhoto(-1);
     auto = !auto;
     document.body.classList.toggle('film-auto', auto);
     if (auto) v.play().catch(() => {}); else { v.pause(); tgt = scrollP; }
+  });
+  function setPhoto(i) {
+    photoIdx = i;
+    photos.forEach((p, k) => p.classList.toggle('on', k === i));
+    document.body.classList.toggle('photo-mode', i >= 0);
+    if (i >= 0) { auto = false; document.body.classList.remove('film-auto'); v.pause(); }
+    if (i >= 0 && !reduce) gsap.fromTo(photos[i], { scale: 1.06 }, { scale: 1, duration: 4.5, ease: 'power1.out' });
+  }
+  photoBtn.addEventListener('click', () => setPhoto(photoIdx >= photos.length - 1 ? -1 : photoIdx + 1));
+  fsBtn.addEventListener('click', () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen().catch(() => {});
   });
   window.addEventListener('keydown', (e) => {
     if (auto || /input|textarea/i.test(document.activeElement.tagName)) return;
@@ -119,17 +131,22 @@ $$('[data-count]').forEach((el) => {
   });
   (function tick() {
     if (ready && v.duration && isFinite(v.duration)) {
-      if (!auto) {
+      if (!auto && photoIdx < 0) {
         cur += (tgt - cur) * (reduce ? 1 : 0.12);
         const t = cur * (v.duration - 0.05);
         if (Math.abs(v.currentTime - t) > 0.01) { try { v.currentTime = t; } catch (_) {} }
       }
-      const p = auto ? v.currentTime / v.duration : scrollP;
-      fill.style.width = (p * 100).toFixed(2) + '%';
-      tc.textContent = fmtTC(v.currentTime);
+      fill.style.width = ((auto ? v.currentTime / v.duration : scrollP) * 100).toFixed(2) + '%';
+      tc.textContent = mmss(v.currentTime);
     }
     requestAnimationFrame(tick);
   })();
+  /* parallax de anillos con el puntero (profundidad inmersiva) */
+  if (!reduce && matchMedia('(pointer: fine)').matches) {
+    const rx = gsap.quickTo('.rings', 'x', { duration: 0.9, ease: 'power3.out' });
+    const ry = gsap.quickTo('.rings', 'y', { duration: 0.9, ease: 'power3.out' });
+    addEventListener('pointermove', (e) => { rx((e.clientX / innerWidth - 0.5) * -30); ry((e.clientY / innerHeight - 0.5) * -20); }, { passive: true });
+  }
 })();
 
 /* ---------- cover film del catálogo (scrub) ---------- */

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SENDER — Engineering the Signal</title>
+  <meta name="description" content="Sender (BIS SpA): transmisores AM/FM, NAVTEX y enlaces HF para radiodifusión, defensa y comunicaciones marítimas. Sala de control scroll-driven." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href="https://cristianoleamiranda-dotcom.github.io/sender-onair/" />
+  <meta property="og:title" content="SENDER | Tecnología que transmite" />
+  <meta property="og:description" content="Ingeniería RF, radiodifusión y comunicaciones críticas. Sala de control scroll-driven." />
+  <meta property="og:image" content="./assets/brand-og.jpg" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="./assets/logo.jpg" />
+  <link rel="preload" as="image" href="./assets/hero.jpg" fetchpriority="high" />
+  <link rel="preload" href="./assets/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="./assets/fonts/pxm-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+  <script type="module" src="./app.js" defer></script>
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "Organization", "name": "Sender (BIS SpA)",
+    "url": "https://www.sender.cl/", "email": "sender@sender.cl", "telephone": "+56983864148",
+    "address": { "@type": "PostalAddress", "streetAddress": "Blanco Viel #1108", "addressLocality": "San Miguel, Santiago", "addressCountry": "CL" } }
+  </script>
+</head>
+<body class="loading">
+
+<a class="skip" href="#main" data-i18n="a11y.skip">Saltar al contenido</a>
+
+<div id="loader" aria-hidden="true"><span class="load-word">SENDER</span><span class="load-bar"><i></i></span><span class="load-mono mono">TX · ON AIR</span></div>
+
+<!-- ============ NAV mínima (dirección del usuario) ============ -->
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#hero" aria-label="Sender — inicio"><i class="logo-dot"></i>SENDER</a>
+  <div class="nav-side">
+    <button id="lang-toggle" class="lang mono" aria-label="ES / EN"><span data-lang="es" class="on">ES</span><span class="sep">/</span><span data-lang="en">EN</span></button>
+    <a class="nav-cta mono" href="#contacto" data-i18n="nav.contact">Contactar <span class="arr">→</span></a>
+    <button id="burger" class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menú"><i></i><i></i></button>
+  </div>
+</header>
+
+<div id="menu" class="menu" aria-hidden="true">
+  <button id="menu-close" class="menu-close" aria-label="Cerrar menú">✕</button>
+  <nav class="menu-list" aria-label="Menú principal">
+    <a href="#trayectoria"><em>01</em><span data-i18n="nav.tray">Trayectoria</span></a>
+    <a href="#capacidades"><em>02</em><span data-i18n="nav.cap">Capacidades</span></a>
+    <a href="#catalogo"><em>03</em><span data-i18n="menu.cat">Catálogo</span></a>
+    <a href="#espectro"><em>04</em><span data-i18n="nav.esp">Espectro</span></a>
+    <a href="#proyectos"><em>05</em><span data-i18n="nav.proj">Proyectos</span></a>
+    <a href="#nosotros"><em>06</em><span data-i18n="nav.about">Nosotros</span></a>
+    <a href="#contacto"><em>07</em><span data-i18n="nav.contact">Contactar</span></a>
+  </nav>
+  <p class="menu-foot mono">33°29′S · 70°39′W — TX · ON AIR</p>
+</div>
+
+<main id="main">
+
+<!-- ============ 01 · HERO SALA DE CONTROL ============ -->
+<section id="hero" class="hero">
+  <video id="film" src="./assets/videos/cap-torre.mp4" muted playsinline preload="auto" poster="./assets/hero.jpg" aria-hidden="true"></video>
+  <span class="hero-shade" aria-hidden="true"></span>
+  <div class="rings" aria-hidden="true"></div>
+  <div class="hud mono" aria-hidden="true">
+    <span>33°29′S · 70°39′W</span>
+    <span>TX · ON AIR</span>
+  </div>
+  <div class="wrap hero-in">
+    <p class="kicker rv"><span class="k-dash"></span><span data-i18n="hero.eyebrow">Ingeniería RF · Radiodifusión · Comunicaciones críticas</span></p>
+    <h1 class="hero-title" data-i18n="hero.title">Ingeniería de la <em>señal</em></h1>
+    <p class="hero-sub rv" data-i18n="hero.sub">Diseñamos y fabricamos transmisores y enlaces que operan décadas donde nada más opera.</p>
+  </div>
+  <div class="transport" role="group" aria-label="Transporte del video">
+    <button id="t-play" class="t-btn" aria-label="Reproducir / pausar film"><span class="ic-play">▶</span><span class="ic-pause">❚❚</span></button>
+    <span class="t-bar" aria-hidden="true"><i id="t-fill"></i></span>
+    <span class="t-tc mono">TC <b id="tc">00:00:00:00</b></span>
+    <span class="t-hint mono" data-i18n="hero.hint">Scroll — el film responde a tu mano</span>
+  </div>
+  <div class="wrap hero-stats">
+    <p class="stat rv"><strong data-count="60">0</strong><span class="mono" data-i18n="hero.s1">mástil Armada 60 m</span></p>
+    <p class="stat rv"><strong data-count="3759">0</strong><span class="mono" data-i18n="hero.s2">km enlace HF Rapa Nui</span></p>
+    <p class="stat rv"><strong>24/7</strong><span class="mono" data-i18n="hero.s3">operación continua</span></p>
+    <p class="stat rv"><strong data-count="15">0</strong><span class="mono" data-i18n="hero.s5">familias de producto</span></p>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div class="marq-in"><span data-i18n="marquee.txt">RADIODIFUSIÓN · DEFENSA · COMUNICACIONES MARÍTIMAS · INFRAESTRUCTURA CRÍTICA ·</span><span data-i18n="marquee.txt">RADIODIFUSIÓN · DEFENSA · COMUNICACIONES MARÍTIMAS · INFRAESTRUCTURA CRÍTICA ·</span></div></div>
+
+<!-- ============ 02 · MISSION LOG ============ -->
+<section id="trayectoria" class="sec" data-wm="01">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span class="k-dash"></span><span class="mono k-n">01</span><span data-i18n="tray.label">Trayectoria</span></p>
+      <h2 class="split" data-i18n="tray.h2">Tres misiones, cero margen.</h2>
+    </header>
+    <ol class="cases">
+      <li class="case rv"><span class="case-n mono">01</span>
+        <div class="case-body"><h3 data-i18n="tray.a.h">Armada de Chile — mástil de 60 m</h3><p data-i18n="tray.a.p">Infraestructura crítica de comunicaciones con exposición total a ambiente marino.</p></div>
+        <img class="case-thumb" src="./assets/thumb-case-1.jpg" alt="" loading="lazy">
+        <span class="case-tag mono" data-i18n="tray.a.t">Defensa</span></li>
+      <li class="case rv"><span class="case-n mono">02</span>
+        <div class="case-body"><h3 data-i18n="tray.b.h">Enlace HF Rapa Nui — 3.759 km</h3><p data-i18n="tray.b.p">El enlace de voz más largo del país sobre el Pacífico, operando 24/7.</p></div>
+        <img class="case-thumb" src="./assets/thumb-case-2.jpg" alt="" loading="lazy">
+        <span class="case-tag mono" data-i18n="tray.b.t">HF · Marítimo</span></li>
+      <li class="case rv"><span class="case-n mono">03</span>
+        <div class="case-body"><h3 data-i18n="tray.c.h">Red NAVTEX nacional</h3><p data-i18n="tray.c.p">Mensajes de seguridad marítima que la costa entera depende de recibir.</p></div>
+        <img class="case-thumb" src="./assets/thumb-case-3.jpg" alt="" loading="lazy">
+        <span class="case-tag mono" data-i18n="tray.c.t">NAVTEX</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 03 · CAPACIDADES (blueprint cards) ============ -->
+<section id="capacidades" class="sec" data-wm="02">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span class="k-dash"></span><span class="mono k-n">02</span><span data-i18n="cap.label">Capacidades</span></p>
+      <h2 class="split" data-i18n="cap.h2">Fabricación y suministro bajo norma.</h2>
+      <p class="sec-sub" data-i18n="cap.sub">Fabricación y suministro bajo normas internacionales de broadcasting. Cada equipo, diseñado para operar décadas en territorio extremo.</p>
+    </header>
+    <div class="caps">
+      <article class="cap rv" data-i="01"><div class="cap-media"><img src="./assets/cap-critical.jpg" alt="Sistemas críticos" loading="lazy"><span class="cap-rec mono">REC</span></div><h3 data-i18n="cap.1.h">Sistemas críticos</h3><p data-i18n="cap.1.p">Cadenas completas de transmisión con redundancia y monitoreo remoto.</p></article>
+      <article class="cap rv" data-i="02"><div class="cap-media"><img src="./assets/cap-transmission.jpg" alt="Transmisión de alta potencia" loading="lazy"><span class="cap-rec mono">REC</span></div><h3 data-i18n="cap.2.h">Transmisión de alta potencia</h3><p data-i18n="cap.2.p">Etapas de potencia AM/FM eficientes, estables y mantenibles en terreno.</p></article>
+      <article class="cap rv" data-i="03"><div class="cap-media"><img src="./assets/cap-rf.jpg" alt="Ingeniería RF" loading="lazy"><span class="cap-rec mono">REC</span></div><h3 data-i18n="cap.3.h">Ingeniería RF</h3><p data-i18n="cap.3.p">Diseño de antenas, líneas y adaptación de impedancia a medida del sitio.</p></article>
+      <article class="cap rv" data-i="04"><div class="cap-media"><img src="./assets/cap-broadcast.jpg" alt="Broadcast llave en mano" loading="lazy"><span class="cap-rec mono">REC</span></div><h3 data-i18n="cap.4.h">Broadcast llave en mano</h3><p data-i18n="cap.4.p">De la ingeniería al ON AIR: instalación, puesta en marcha y capacitación.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · CATÁLOGO (pico) ============ -->
+<section id="catalogo" class="sec" data-wm="03">
+  <div class="cat-cover">
+    <video id="cover-film" src="./assets/videos/cine.mp4" muted playsinline preload="metadata" poster="./assets/cap-critical.jpg" aria-hidden="true"></video>
+    <span class="cover-shade" aria-hidden="true"></span>
+    <div class="wrap cover-copy">
+      <p class="kicker"><span class="k-dash"></span><span class="mono k-n">03</span><span data-i18n="cat.label">Catálogo</span></p>
+      <h2 class="split" data-i18n="cat.h2">Cuatro máquinas. Un estándar.</h2>
+      <p class="sec-sub" data-i18n="cat.sub">Cada producto como en una keynote: cuatro vistas que rotan con tu scroll — o un video cuando exista.</p>
+    </div>
+  </div>
+
+  <div class="wrap prod" id="prod-am">
+    <div class="prod-info">
+      <p class="kicker mono" data-i18n="prod.am.k">AM · Alta potencia</p>
+      <h3 class="prod-name" data-i18n="prod.am.h">Transmisor AM</h3>
+      <p class="prod-lead" data-i18n="prod.am.lead">Cobertura de onda media para radiodifusión nacional.</p>
+      <ul class="specs mono">
+        <li data-i18n="prod.am.s1">Potencias de 1 a 20 kW</li><li data-i18n="prod.am.s2">Modulación hasta 95%</li><li data-i18n="prod.am.s3">Eficiencia &gt; 70%</li><li data-i18n="prod.am.s4">Monitoreo y control remoto</li>
+      </ul>
+    </div>
+    <div class="pstack" data-tilt aria-hidden="true">
+      <img class="on" src="./assets/stack-am-v1.jpg" alt="" loading="lazy"><img src="./assets/stack-am-v2.jpg" alt="" loading="lazy"><img src="./assets/stack-am-v3.jpg" alt="" loading="lazy"><img src="./assets/stack-am-v4.jpg" alt="" loading="lazy">
+      <span class="pstack-count mono">TOMA <b>1</b>/4</span>
+    </div>
+  </div>
+  <div class="wrap prod" id="prod-fm">
+    <div class="prod-info">
+      <p class="kicker mono" data-i18n="prod.fm.k">FM · Broadcast</p>
+      <h3 class="prod-name" data-i18n="prod.fm.h">Transmisor FM</h3>
+      <p class="prod-lead" data-i18n="prod.fm.lead">Del estudio a la antena con la menor distorsión posible.</p>
+      <ul class="specs mono">
+        <li data-i18n="prod.fm.s1">50 W a 10 kW configurables</li><li data-i18n="prod.fm.s2">Stereo digital con DSP</li><li data-i18n="prod.fm.s3">Protección completa de PA</li><li data-i18n="prod.fm.s4">Telemetría en tiempo real</li>
+      </ul>
+    </div>
+    <div class="pstack" data-tilt aria-hidden="true">
+      <img class="on" src="./assets/stack-fm-v1.jpg" alt="" loading="lazy"><img src="./assets/stack-fm-v2.jpg" alt="" loading="lazy"><img src="./assets/stack-fm-v3.jpg" alt="" loading="lazy"><img src="./assets/stack-fm-v4.jpg" alt="" loading="lazy">
+      <span class="pstack-count mono">TOMA <b>1</b>/4</span>
+    </div>
+  </div>
+  <div class="wrap prod" id="prod-nx">
+    <div class="prod-info">
+      <p class="kicker mono" data-i18n="prod.nx.k">NAVTEX · Seguridad marítima</p>
+      <h3 class="prod-name" data-i18n="prod.nx.h">Transmisor NAVTEX</h3>
+      <p class="prod-lead" data-i18n="prod.nx.lead">Mensajes de seguridad que llegan a cada embarcación costera.</p>
+      <ul class="specs mono">
+        <li data-i18n="prod.nx.s1">518 kHz internacional</li><li data-i18n="prod.nx.s2">490–518 kHz seleccionable</li><li data-i18n="prod.nx.s3">Operación desatendida 24/7</li><li data-i18n="prod.nx.s4">Cumple normas IMO</li>
+      </ul>
+    </div>
+    <div class="pstack" data-tilt aria-hidden="true">
+      <img class="on" src="./assets/stack-nx-v1.jpg" alt="" loading="lazy"><img src="./assets/stack-nx-v2.jpg" alt="" loading="lazy"><img src="./assets/stack-nx-v3.jpg" alt="" loading="lazy"><img src="./assets/stack-nx-v4.jpg" alt="" loading="lazy">
+      <span class="pstack-count mono">TOMA <b>1</b>/4</span>
+    </div>
+  </div>
+  <div class="wrap prod" id="prod-tw">
+    <div class="prod-info">
+      <p class="kicker mono" data-i18n="prod.tw.k">Torres · Estructuras</p>
+      <h3 class="prod-name" data-i18n="prod.tw.h">Torres y mástiles</h3>
+      <p class="prod-lead" data-i18n="prod.tw.lead">Estructuras arriostradas y autosoportadas para todo clima.</p>
+      <ul class="specs mono">
+        <li data-i18n="prod.tw.s1">Hasta 60 m y más</li><li data-i18n="prod.tw.s2">Acero galvanizado en caliente</li><li data-i18n="prod.tw.s3">Cálculo y certificación</li><li data-i18n="prod.tw.s4">Montaje en terreno extremo</li>
+      </ul>
+    </div>
+    <div class="pstack" data-tilt aria-hidden="true">
+      <img class="on" src="./assets/stack-tw-v1.jpg" alt="" loading="lazy"><img src="./assets/stack-tw-v2.jpg" alt="" loading="lazy"><img src="./assets/stack-tw-v3.jpg" alt="" loading="lazy"><img src="./assets/stack-tw-v4.jpg" alt="" loading="lazy">
+      <span class="pstack-count mono">TOMA <b>1</b>/4</span>
+    </div>
+  </div>
+
+  <div class="wrap families">
+    <p class="kicker rv"><span class="k-dash"></span><span data-i18n="cat.idx">Índice</span> — 15</p>
+    <ul class="fam-grid mono">
+      <li data-i18n="cat.n1">Transmisores AM</li><li data-i18n="cat.n2">Transmisores FM</li><li data-i18n="cat.n3">NAVTEX</li><li data-i18n="cat.n4">Antenas</li><li data-i18n="cat.n5">Torres y mástiles</li><li data-i18n="cat.n6">Enlaces HF</li><li data-i18n="cat.n7">Receptores</li><li data-i18n="cat.n8">Monitoreo</li><li data-i18n="cat.n9">Audio/STL</li><li data-i18n="cat.n10">Fuentes de poder</li><li data-i18n="cat.n11">Combinadores</li><li data-i18n="cat.n12">Filtros</li><li data-i18n="cat.n13">Repuestos</li><li data-i18n="cat.n14">Servicios</li><li data-i18n="cat.n15">Proyectos llave en mano</li>
+    </ul>
+    <a class="btn btn-line rv" href="https://wa.me/56983864148?text=Hola%20Sender%2C%20quiero%20cotizar" target="_blank" rel="noopener" data-i18n="prod.cta">Cotizar este equipo → WhatsApp</a>
+  </div>
+</section>
+
+<!-- ============ 05 · ESPECTRO (analizador) ============ -->
+<section id="espectro" class="sec deep" data-wm="04">
+  <div class="wrap esp">
+    <header class="sec-head rv">
+      <p class="kicker"><span class="k-dash"></span><span class="mono k-n">04</span><span data-i18n="esp.label">Espectro</span></p>
+      <h2 class="split" data-i18n="esp.h2">Todo el espectro, una sola ingeniería.</h2>
+    </header>
+    <div class="esp-stage">
+      <div class="esp-dial">
+        <div id="knob" role="slider" tabindex="0" aria-label="Sintonizar el espectro / Tune the spectrum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="knob-ring"></i><i class="knob-dot"></i></div>
+        <p class="readout"><b id="freq">490.0</b><span id="unit" class="mono">kHz</span></p>
+        <p id="band-name" class="band mono">NAVTEX</p>
+        <div class="bandbar" aria-hidden="true"><span id="needle"></span></div>
+        <div class="segs" aria-hidden="true"><span class="seg active">NAVTEX</span><span class="seg">AM</span><span class="seg">HF</span><span class="seg">FM</span></div>
+      </div>
+      <div class="esp-panels">
+        <article class="panel active"><h4 data-i18n="esp.p0.h">NAVTEX</h4><p data-i18n="esp.p0.p">Seguridad marítima internacional en 518 kHz.</p><span class="mono" data-i18n="esp.p0.prod">TX NAVTEX · Antenas · Fuentes</span></article>
+        <article class="panel"><h4 data-i18n="esp.p1.h">Onda Media (AM)</h4><p data-i18n="esp.p1.p">Cobertura nacional de radiodifusión con alta eficiencia.</p><span class="mono" data-i18n="esp.p1.prod">TX AM 1–20 kW · Mástil · ATU</span></article>
+        <article class="panel"><h4 data-i18n="esp.p2.h">HF</h4><p data-i18n="esp.p2.p">Enlaces de voz y datos a miles de kilómetros, como Rapa Nui.</p><span class="mono" data-i18n="esp.p2.prod">Enlaces HF · Antenas · Receptores</span></article>
+        <article class="panel"><h4 data-i18n="esp.p3.h">FM</h4><p data-i18n="esp.p3.p">Broadcast de alta fidelidad desde 50 W hasta 10 kW.</p><span class="mono" data-i18n="esp.p3.prod">TX FM · STL · Combinadores</span></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 · PROYECTOS (track) ============ -->
+<section id="proyectos" class="sec proj-sec" data-wm="05">
+  <div class="proj-pin">
+    <header class="wrap sec-head rv">
+      <p class="kicker"><span class="k-dash"></span><span class="mono k-n">05</span><span data-i18n="proj.label">Proyectos</span></p>
+      <h2 class="split" data-i18n="proj.h2">Donde otros no llegan.</h2>
+      <span class="proj-count mono"><b id="proj-now">01</b> / 04</span>
+    </header>
+    <div class="htrack" id="htrack">
+      <figure class="slide"><div class="slide-media"><img src="./assets/proj-am.jpg" alt="Planta AM" loading="lazy"></div><figcaption><p class="loc mono" data-i18n="proj.1.loc">Chile · Onda media</p><h3 data-i18n="proj.1.h">Planta AM de alta potencia</h3><p data-i18n="proj.1.p">Transmisor, mástil y puesta en ON AIR.</p></figcaption></figure>
+      <figure class="slide"><div class="slide-media"><video src="./assets/videos/prop-rapanui.mp4" muted loop playsinline preload="metadata" aria-label="Rapa Nui"></video></div><figcaption><p class="loc mono" data-i18n="proj.2.loc">Rapa Nui · 3.759 km</p><h3 data-i18n="proj.2.h">Enlace HF más largo del país</h3><p data-i18n="prop.km">3.759 km sobre el Pacífico, 24/7.</p></figcaption></figure>
+      <figure class="slide"><div class="slide-media"><img src="./assets/proj-stl.jpg" alt="STL" loading="lazy"></div><figcaption><p class="loc mono" data-i18n="proj.3.loc">Santiago · STL</p><h3 data-i18n="proj.3.h">Enlace estudio–planta</h3><p data-i18n="proj.3.p">Audio digital punto a punto con redundancia.</p></figcaption></figure>
+      <figure class="slide"><div class="slide-media"><img src="./assets/hero.jpg" alt="Torre nocturna" loading="lazy"></div><figcaption><p class="loc mono" data-i18n="proj.4.loc">Zona costera · Torres</p><h3 data-i18n="proj.4.h">Torres y mástiles a medida</h3><p data-i18n="proj.4.p">Estructuras certificadas para viento y salinidad extremos.</p></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · NOSOTROS (ON AIR) ============ -->
+<section id="nosotros" class="sec" data-wm="06">
+  <div class="wrap about">
+    <div class="about-media">
+      <img src="./assets/about.jpg" alt="Equipo Sender en planta" loading="lazy">
+      <span class="onair mono"><i></i>ON AIR — PLANTA SAN MIGUEL</span>
+      <p class="fig mono" data-i18n="fig.1">Planta Sender · San Miguel, Santiago</p>
+    </div>
+    <div class="about-text">
+      <header class="sec-head rv">
+        <p class="kicker"><span class="k-dash"></span><span class="mono k-n">06</span><span data-i18n="about.label">Nosotros</span></p>
+        <h2 class="split" data-i18n="about.h2">Ingeniería que se responde por años.</h2>
+      </header>
+      <p class="rv" data-i18n="about.p1">Sender (BIS SpA) diseña y fabrica equipos de radiodifusión y telecomunicaciones en Santiago de Chile.</p>
+      <p class="rv" data-i18n="about.p2">Cada equipo se prueba en condiciones reales antes de salir de la planta.</p>
+      <p class="pull rv" data-i18n="about.quote">Un transmisor Sender se instala una vez y trabaja décadas.</p>
+      <div class="points">
+        <div class="point rv"><h4 data-i18n="about.pt1.h">Misión</h4><p data-i18n="about.pt1.p">Que la señal crítica nunca falte.</p></div>
+        <div class="point rv"><h4 data-i18n="about.pt2.h">Alcance</h4><p data-i18n="about.pt2.p">De Arica a Rapa Nui y la Antártica.</p></div>
+        <div class="point rv"><h4 data-i18n="about.pt3.h">Servicio</h4><p data-i18n="about.pt3.p">Soporte y repuestos por décadas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 · CONTACTO (panel) ============ -->
+<section id="contacto" class="sec deep" data-wm="07">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><span class="k-dash"></span><span class="mono k-n">07</span><span data-i18n="con.label">Contacto</span></p>
+      <h2 class="split" data-i18n="con.h2">Hablemos de tu próxima señal.</h2>
+      <p class="sec-sub" data-i18n="con.sub">Radiodifusión, defensa, comunicaciones marítimas o infraestructura crítica: la ingeniería la ponemos nosotros.</p>
+    </header>
+    <div class="contact-grid">
+      <a class="ccell rv" href="https://maps.google.com/?q=Blanco+Viel+1108+San+Miguel+Santiago" target="_blank" rel="noopener"><span class="mono" data-i18n="con.c1.l">Planta</span><strong>Blanco Viel #1108<br>San Miguel, Santiago</strong></a>
+      <a class="ccell rv" href="https://wa.me/56983864148" target="_blank" rel="noopener"><span class="mono" data-i18n="con.c2.l">WhatsApp</span><strong>+56 9 8386 4148</strong></a>
+      <a class="ccell rv" href="mailto:sender@sender.cl"><span class="mono" data-i18n="con.c3.l">Email</span><strong>sender@sender.cl</strong></a>
+    </div>
+    <div class="cta-band rv">
+      <h3 data-i18n="cta.h">¿Proyecto en mente?</h3>
+      <p data-i18n="cta.p">Cuéntanos la cobertura que necesitas y devolvemos ingeniería, no folletos.</p>
+      <div class="cta-actions">
+        <a class="btn btn-fill" href="https://wa.me/56983864148?text=Hola%20Sender%2C%20quiero%20cotizar" target="_blank" rel="noopener" data-i18n="con.cta">Cotizar ahora</a>
+        <a class="btn btn-line" href="mailto:sender@sender.cl" data-i18n="cta.b2">Escribir email</a>
+      </div>
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <p class="mono" data-i18n="foot.1">© 2026 Sender · BIS SpA — Todos los derechos reservados.</p>
+      <p class="mono build">SENDER · ON AIR BUILD 1.0</p>
+      <p class="mono" data-i18n="foot.2">Ingeniería RF y Broadcasting · Santiago de Chile</p>
+      <a class="foot-top mono" href="#hero" data-i18n="foot.top">↑ Volver arriba</a>
+    </div>
+  </footer>
+</section>
+
+</main>
+
+<a id="wa" href="https://wa.me/56983864148" target="_blank" rel="noopener" aria-label="WhatsApp Sender"><span class="mono">WA</span></a>
+
+</body>
+</html>

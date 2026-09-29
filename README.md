@@ -1,1 +1,1 @@
-https://github.com/cristianoleamiranda-dotcom/sender-onair/tree/prep%2Fv1.7
+https://github.com/cristianoleamiranda-dotcom/sender-onair/pull/1

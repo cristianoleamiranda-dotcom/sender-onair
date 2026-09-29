@@ -1,1 +1,1 @@
-c5c9065ee8a2d91f91652aa4104ced36ea1d5b39
+https://github.com/cristianoleamiranda-dotcom/sender-onair/blob/prep%2Fv1.7/README.md

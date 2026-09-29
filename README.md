@@ -1,1 +1,1 @@
-https://github.com/cristianoleamiranda-dotcom/sender-onair/pull/1
+https://github.com/cristianoleamiranda-dotcom/sender-onair/blob/prep%2Fv1.7/README.md
